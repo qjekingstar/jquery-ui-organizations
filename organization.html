@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="jQuery UI 组织架构图插件">
+	<meta name="author" content="qj">
+	<title>jQuery UI 组织架构图插件</title>
+	<link href="css/bootstrap/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="css/jquery-ui-organizations.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="demo"></div>
+</body>
+<script type="text/javascript" src="js/jquery/jquery.js"></script> 
+<script type="text/javascript" src="js/jquery/jquery-ui-1.10.4.custom.js"></script> 
+<script type="text/javascript" src="js/jquery/jquery.tmpl.js"></script> 
+<script type="text/javascript" src="js/jquery-ui-organizations.js"></script> 
+
+<script>
+	$("#demo").organizations({
+		rootTitle: "Root Name",
+		nodes:{
+			"here is node 1 id":{
+				data:{
+					title:"Node 1"
+				},
+				children:{
+					"here is node 1.1 id":{
+						data:{
+							title:"Node 1.1",
+							leader:{
+								name:"Yun Ma",
+								position:"CEO",
+								nation:{
+									code: "han",
+									name: "汉族"
+								}
+							}
+						},
+						children:{
+							"here is node 1.1.1 id":{
+								data:{
+									title: "Node 1.1.1"
+								}
+							},
+							"here is node 1.1.2 id":{
+								data:{
+									title: "Node 1.1.2"
+								}
+							}
+						},
+						template:"<div class='panel-head'>${title}</div><div class='panel-boty'><label class='label label-info'>${leader.name}</label><a class='text-danger clearfix'>${leader.position}</a><a class='text-danger'>${leader.nation.name}(${leader.nation.code})</a></div>"
+					},
+					"here is node 1.2 id":{
+						data:{
+							title:"Node 1.2"
+						}
+					}
+				}
+			},
+			"here is node 2":{
+				data:{title:"Node 2"},
+				children:{
+					"here is node 2.1":{
+						data:{title:"Node 2.1"}
+					}
+				}
+			},
+			"here is node 3":{
+				data:{title:"Node 3"},
+				children:{
+					"here is node 3.1":{
+						data:{title:"Node 3.1"}
+					}
+				}
+			},
+			"here is node 4":{
+				data:{title:"Node 4"},
+				children:{
+					"here is node 4.1":{
+						data:{title:"Node 4.1"}
+					}
+				}
+			},
+		}
+	});
+</script>
+</html>
