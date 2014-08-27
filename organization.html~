@@ -108,11 +108,11 @@
 	});
 
 	$("#add").click(function(){
-		$("#demo").organizations("addNode","here is node 3.2",{
-			data:{title:"Node 3.2"},
+		$("#demo").organizations("addNode","here is node 3.1",{
+			data:{title:"Node 3.1"},
 			children:{
-				"here is node 3.2.1":{
-					data:{title:"Node 3.2.1"}
+				"here is node 3.1.1":{
+					data:{title:"Node 3.1.1"}
 				}
 			}
 		},"here is node 3");

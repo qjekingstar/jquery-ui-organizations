@@ -46,10 +46,12 @@ ol.ui-organizations > li.root > span.panel,.ui-organizations ol > li > span.pane
 	width:auto;
 }
 
+
 ol.ui-organizations > li.root > div.line,ol.ui-organizations ol > li > div.line{
 	margin:auto;
 	width:16px;
 }
+
 
 ol.ui-organizations > li.root > div.line > div.glyphicon-pan,.ui-organizations ol > li > div.line > div.glyphicon-pan{
 	width:16px;

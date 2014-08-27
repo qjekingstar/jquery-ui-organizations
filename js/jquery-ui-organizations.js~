@@ -273,7 +273,7 @@
 			for(name in this.options.root.attrs){
 				rootHtml += ' '+name+'="'+this.options.root.attrs[name]+'"';
 			}
-			rootHtml += '><div class="panel-heading">'+this.options.rootTitle+'</div></span></li>';
+			rootHtml += '>'+this.options.rootTitle+'</span></li>';
 			var root = $(rootHtml);
 			var sRoot = $("<ol></ol>");
 			root.append(sRoot);
