@@ -114,11 +114,14 @@
 			}
 			spanHtml +='></span>';
 			var span = $(spanHtml);
-			if(nodeObject.template){
-				span.append($.tmpl(nodeObject.template,nodeObject.data));
-			} else {
-				span.html("<div class='panel-heading'>"+nodeObject.data.title+"</span>");
+			if(nodeObject.initTitle!==false){
+				span.append("<div class='panel-heading'>"+nodeObject.data.title+"</div>");
 			}
+			var panelBody = $('<div class="panel-body"></div>');
+			if(nodeObject.template){
+				panelBody.append($.tmpl(nodeObject.template,nodeObject.data));
+			}
+			span.append(panelBody);
 			node.append(span);
 			var childrenOL = $("<ol></ol>");
 			span.attr("nodeId",nodeId);
@@ -270,12 +273,22 @@
 		},
 		_initNodes: function(){
 			var rootOL = $("<ol class='ui-organizations'></ol>");
-			var rootHtml = '<li class="root"><span class="panel panel-default"';
+			var rootHtml = '<span class="panel panel-default"';
 			for(name in this.options.root.attrs){
 				rootHtml += ' '+name+'="'+this.options.root.attrs[name]+'"';
 			}
-			rootHtml += '><div class="panel-heading">'+this.options.rootTitle+'</div></span></li>';
+			rootHtml += '>';
+			if(this.options.root.initTitle!==false){
+				rootHtml+='<div class="panel-heading">'+this.options.root.title+'</div>';
+			}
+			rootHtml +='</span>';
 			var root = $(rootHtml);
+			var panelBody = $('<div class="panel-body"></div>');
+			if(this.options.root.template){
+				panelBody.append($.tmpl(this.options.root.template,this.options.root.data));
+			}
+			root.append(panelBody);
+			root = $('<li class="root"></li>').append(root);
 			var sRoot = $("<ol></ol>");
 			root.append(sRoot);
 			rootOL.append(root);
