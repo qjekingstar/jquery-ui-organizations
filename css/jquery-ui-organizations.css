@@ -50,6 +50,13 @@ ol.ui-organizations > li.root > span.panel,.ui-organizations ol > li > span.pane
 	width:auto;
 }
 
+ol.ui-organizations > li.root > span.panel > .panel-heading,
+.ui-organizations ol > li > span.panel > .panel-heading,
+ol.ui-organizations > li.root > span.panel > .panel-body,
+.ui-organizations ol > li > span.panel > .panel-body{
+	padding:5px 10px;
+}
+
 ol.ui-organizations > li.root > div.line,ol.ui-organizations ol > li > div.line{
 	margin:auto;
 	width:16px;
