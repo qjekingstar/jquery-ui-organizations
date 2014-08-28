@@ -1,9 +1,13 @@
 ol.ui-organizations,ol.ui-organizations ol{
-	width:100%;
+	width:auto;
 	margin-left:auto;
 	margin-right:auto;
 	padding:0;
 	text-align:center;
+}
+ol.ui-organizations{
+	width:9999px;
+	text-align:left;
 }
 ol.ui-organizations > li.root,ol.ui-organizations ol > li{
 	display:inline-block;

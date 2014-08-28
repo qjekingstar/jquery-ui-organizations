@@ -21,6 +21,7 @@
 		all.each(function(){
 			height = Math.max($(this).outerHeight(),height);
 		});
+		var w = 0;
 		all.each(function(){
 			var children = $(this).children("ol").children("li");
 			if(children.length){
@@ -42,7 +43,7 @@
 						});
 					} else {
 						lineH.css({
-							width:(lastChild.position().left+lastChild.outerWidth()/2)-start,
+							width:($(this).width()-lastChild.outerWidth()/2)-start,
 							left:start
 						});
 						if(children.length > 2){

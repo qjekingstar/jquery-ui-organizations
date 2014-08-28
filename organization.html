@@ -11,12 +11,14 @@
 	<link href="css/jquery-ui-organizations.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+	<div style="width:800px;height:400px;overflow:hidden;border:1px solid red">
 	<div id="demo"></div>
+	<div>
 	<button id="add" class="btn btn-primary icon-plus"> 添加节点</button>
 	<button id="remove" class="btn btn-danger icon-remove"> 删除节点Node 3</button>
 	<button id="confirmRemove" class="btn btn-danger icon-remove"> confirm删除节点Node 2</button>
 	<button id="callbackRemove" class="btn btn-danger icon-remove"> 回调删除节点Node 1</button>
-
+	<input type="checkbox" id="aaa"/>
 	<div aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade in" style="display: none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -106,16 +108,16 @@
 			},
 		}
 	});
-
+var idx = 2
 	$("#add").click(function(){
+		var children = {}
+		children["here is node 3."+idx+".1"] ={data:{title:"Node 3."+idx+".1"}}
+		
 		$("#demo").organizations("addNode","here is node 3.2",{
-			data:{title:"Node 3.2"},
-			children:{
-				"here is node 3.2.1":{
-					data:{title:"Node 3.2.1"}
-				}
-			}
+			data:{title:"Node 3."+idx},
+			children:children
 		},"here is node 3");
+idx++
 	});
 
 	$("#remove").click(function(){
