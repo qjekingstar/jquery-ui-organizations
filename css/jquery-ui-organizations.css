@@ -6,7 +6,7 @@ ol.ui-organizations,ol.ui-organizations ol{
 	text-align:center;
 }
 ol.ui-organizations{
-	//width:9999px;
+	width:9999px;
 	text-align:left;
 }
 ol.ui-organizations > li.root,ol.ui-organizations ol > li{
