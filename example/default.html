@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="jQuery UI 组织架构图插件">
+	<meta name="author" content="qj">
+	<title>jQuery UI 组织架构图插件</title>
+	<link href="../css/bootstrap/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="../css/jquery-ui-organizations.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div style="width:800px;height:400px;overflow:hidden;border:1px solid #ddd;padding:10px;margin:10px auto">
+		<div id="demo"></div>
+	</div>
+	<button id="add" class="btn btn-primary icon-plus"> 添加节点</button>
+	<button id="remove" class="btn btn-danger icon-remove"> 删除节点Node 3</button>
+	<button id="confirmRemove" class="btn btn-danger icon-remove"> confirm删除节点Node 2</button>
+	<button id="callbackRemove" class="btn btn-danger icon-remove"> 回调删除节点Node 1</button>
+	<div aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade in" style="display: none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+					<h4 id="myModalLabel" class="modal-title">Modal title</h4>
+				</div>
+				<div class="modal-body">确认删除???</div>
+				<div class="modal-footer">
+					<button id="ok" class="btn btn-primary" type="button">确认删除</button>
+					<button id="cancel" data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../js/jquery/jquery.js"></script> 
+<script type="text/javascript" src="../js/jquery/jquery-ui-1.10.4.custom.js"></script> 
+<script type="text/javascript" src="../js/jquery/jquery.tmpl.js"></script> 
+<script type="text/javascript" src="../js/jquery-ui-organizations.js"></script> 
+
+<script>
+	$("#demo").organizations({
+		root: {title :"Root Name"},
+		nodes:{
+			"here is node 1":{
+				data:{
+					title:"Node 1"
+				},
+				children:{
+					"here is node 1.1":{
+						data:{
+							title:"Node 1.1",
+							leader:{
+								name:"Yun Ma",
+								position:"CEO",
+								nation:{
+									code: "han",
+									name: "汉族"
+								}
+							}
+						},
+						children:{
+							"here is node 1.1.1":{
+								data:{
+									title: "Node 1.1.1"
+								}
+							},
+							"here is node 1.1.2":{
+								data:{
+									title: "Node 1.1.2"
+								}
+							}
+						},
+						template:"<div class='panel-head'>${title}</div><div class='panel-boty'><label class='label label-info'>${leader.name}</label><a class='text-danger clearfix'>${leader.position}</a><a class='text-danger'>${leader.nation.name}(${leader.nation.code})</a></div>"
+					},
+					"here is node 1.2":{
+						data:{
+							title:"Node 1.2"
+						}
+					}
+				}
+			},
+			"here is node 2":{
+				data:{title:"Node 2"},
+				children:{
+					"here is node 2.1":{
+						data:{title:"Node 2.1"}
+					}
+				}
+			},
+			"here is node 3":{
+				data:{title:"Node 3"},
+				children:{
+					"here is node 3.1":{
+						data:{title:"Node 3.1"}
+					}
+				}
+			},
+			"here is node 4":{
+				data:{title:"Node 4"},
+				children:{
+					"here is node 4.1":{
+						data:{title:"Node 4.1"}
+					}
+				}
+			},
+		}
+	});
+	var idx = 2
+	$("#add").click(function(){
+		var children = {}
+		children["here is node 3."+idx+".1"] ={data:{title:"Node 3."+idx+".1"}}
+		
+		$("#demo").organizations("addNode","here is node 3.2",{
+			data:{title:"Node 3."+idx},
+			children:children
+		},"here is node 3");
+		idx++
+	});
+
+	$("#remove").click(function(){
+		$("#demo").organizations("removeNode","here is node 3");
+	});
+
+	$("#confirmRemove").click(function(){
+		$("#demo").organizations("removeNode","here is node 2",function(){
+			return confirm("确认删除???");
+		});
+	});
+
+	$("#callbackRemove").click(function(){
+		$("#demo").organizations("removeNode","here is node 1",function(callback){
+			$("#myModal").show();
+			$("#ok")[0].onclick = function(){
+				callback();
+				$("#myModal").hide();
+			}
+			$("#cancel")[0].onclick = function(){
+				$("#myModal").hide();
+			}
+		},true);
+	});
+</script>
+</html>
