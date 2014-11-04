@@ -116,12 +116,18 @@
 			var span = $(spanHtml);
 			if(nodeObject.initTitle!==false){
 				span.append("<div class='panel-heading'>"+nodeObject.data.title+"</div>");
+				var panelBody = $('<div class="panel-body"></div>');
+				if(nodeObject.template){
+					panelBody.append($.tmpl(nodeObject.template,nodeObject.data));
+				}
+				span.append(panelBody);
+			} else {
+				if(nodeObject.template){
+					span.append($.tmpl(nodeObject.template,nodeObject.data));
+				} else {
+					span.append('<div class="panel-body"></div>');
+				}
 			}
-			var panelBody = $('<div class="panel-body"></div>');
-			if(nodeObject.template){
-				panelBody.append($.tmpl(nodeObject.template,nodeObject.data));
-			}
-			span.append(panelBody);
 			node.append(span);
 			var childrenOL = $("<ol></ol>");
 			span.attr("nodeId",nodeId);
@@ -147,6 +153,37 @@
 			if(!skipRepaint){
 				this._bindAction();
 				this._repaint();
+			}
+		},
+		updateNode: function(nodeId,nodeObject){
+			var span = $(this.element).find("span[nodeId='"+nodeId+"']");
+			if(span.length){
+				var node = span.parent();
+				span[0].classname = "panel panel-default";
+				if(nodeObject.classname){
+					span.addClass(nodeObject.classname);
+				}
+				if(nodeObject.attrs){
+					for(name in nodeObject.attrs){
+						span.attr(name,nodeObject.attrs[name]);
+					}
+				}
+				span.empty();
+
+				if(nodeObject.initTitle!==false){
+					span.append("<div class='panel-heading'>"+nodeObject.data.title+"</div>");
+					var panelBody = $('<div class="panel-body"></div>');
+					if(nodeObject.template){
+						panelBody.append($.tmpl(nodeObject.template,nodeObject.data));
+					}
+					span.append(panelBody);
+				} else {
+					if(nodeObject.template){
+						span.append($.tmpl(nodeObject.template,nodeObject.data));
+					} else {
+						span.append('<div class="panel-body"></div>');
+					}
+				}
 			}
 		},
 		removeNode: function(node,confirmMethod,sync){
@@ -278,16 +315,24 @@
 				rootHtml += ' '+name+'="'+this.options.root.attrs[name]+'"';
 			}
 			rootHtml += '>';
+			var root;
 			if(this.options.root.initTitle!==false){
 				rootHtml+='<div class="panel-heading">'+this.options.root.title+'</div>';
+				rootHtml +='</span>';
+				root = $(rootHtml);
+				var panelBody = $('<div class="panel-body"></div>');
+				if(this.options.root.template){
+					panelBody.append($.tmpl(this.options.root.template,this.options.root.data));
+				}
+				root.append(panelBody)
+			} else {
+				root = $(rootHtml);
+				if(this.options.root.template){
+					root.append($.tmpl(this.options.root.template,this.options.root.data));
+				} else {
+					root.append('<div class="panel-body"></div>');
+				}
 			}
-			rootHtml +='</span>';
-			var root = $(rootHtml);
-			var panelBody = $('<div class="panel-body"></div>');
-			if(this.options.root.template){
-				panelBody.append($.tmpl(this.options.root.template,this.options.root.data));
-			}
-			root.append(panelBody);
 			root = $('<li class="root"></li>').append(root);
 			var sRoot = $("<ol></ol>");
 			root.append(sRoot);
